@@ -31,16 +31,22 @@ body {
 }
 
 /* Grup Aşaması */
-.groups-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
+.group-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* gruplar arası boşluk */
+  margin-top: 30px;
 }
 .group {
-  background: white;
+  flex: 1 1 calc(25% - 20px); /* 4’lü grid */
+  min-width: 220px; /* küçüldüğünde 2’li veya 1’li olur */
+  max-width: 300px;
+  background: #f8f8f8;
   border: 2px solid #2980b9;
-  border-radius: 6px;
-  padding: 10px;
+  border-radius: 8px;
+  padding: 12px;
+  box-sizing: border-box;
 }
 .group-title {
   text-align: center;
@@ -171,23 +177,14 @@ body {
   transition: all 0.3s ease-in-out;
   box-sizing: border-box; /* 👈 bu satır taşmayı engeller */
 }
-@media (max-width: 750px) {
-  .bracket-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-  .match,
-  .champion-slot {
-    max-width: 100%;
+@media (max-width: 900px) {
+  .group {
+    flex: 1 1 calc(50% - 20px); /* 2 grup/satır */
   }
 }
-
-@media (max-width: 480px) {
-  .bracket-grid {
-    grid-template-columns: 1fr;
-  }
-  .round {
-    gap: 16px;
+@media (max-width: 600px) {
+  .group {
+    flex: 1 1 100%; /* tek grup/satır */
   }
 }
 .leaderboard-table {
