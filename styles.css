@@ -1,0 +1,212 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f7f9;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Sekmeler */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.tab-button {
+  padding: 10px 16px;
+  background: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.tab-button.active {
+  background: #1a5276;
+}
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+
+/* Grup Aşaması */
+.groups-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+.group {
+  background: white;
+  border: 2px solid #2980b9;
+  border-radius: 6px;
+  padding: 10px;
+}
+.group-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.team {
+  display: flex;
+  align-items: center;
+  background: #ecf0f1;
+  margin: 4px 0;
+  padding: 6px;
+  border-radius: 4px;
+  cursor: grab;
+}
+.team img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Eleme Aşaması (Grid tabanlı, ekran genişliğine uyan) */
+.bracket-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+  width: 100%;
+}
+.round {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.stage-title {
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+.match {
+  background: #ecf0f1;
+  border: 2px solid #2980b9;
+  border-radius: 6px;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  min-height: 86px; /* 👈 2 takım + boşluk kadar yükseklik */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 180px;
+  box-sizing: border-box;
+}
+
+.match-label {
+  font-size: 0.9em;
+  color: #34495e;
+  margin-bottom: 4px;
+}
+.vs {
+  font-weight: bold;
+  display: block;
+  margin: 4px 0;
+}
+.team-mini {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* 👈 sola hizalama */
+  gap: 8px; /* 👈 sabit boşluk */
+  margin: 4px 0;
+  text-align: left;
+  width: 100%;
+}
+
+.team-mini img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0; /* 👈 logonun sabit kalmasını sağlar */
+}
+
+/* İsteğe bağlı bağlantı çizgileri */
+.match.connector::before,
+.match.connector::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background: #2980b9;
+  top: 25%;
+}
+.match.connector::before {
+  left: -20px;
+}
+.match.connector::after {
+  right: -20px;
+}
+
+.champion-slot {
+  background: #fff9e6;
+  border: 3px solid gold;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 20px;
+  text-align: center;
+  min-height: 70px;
+  font-weight: bold;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 180px; /* 👈 Final kutusuyla aynı genişlik */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.champion-slot .team-mini {
+  justify-content: center;
+}
+.team-mini.winner {
+  background-color: #d4edda;
+  border: 2px solid #27ae60;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  box-sizing: border-box; /* 👈 bu satır taşmayı engeller */
+}
+@media (max-width: 750px) {
+  .bracket-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .match,
+  .champion-slot {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .bracket-grid {
+    grid-template-columns: 1fr;
+  }
+  .round {
+    gap: 16px;
+  }
+}
+.leaderboard-table {
+  background: white;
+  border: 2px solid #2c3e50;
+  border-radius: 8px;
+  padding: 16px;
+  max-width: 400px;
+  margin: 20px auto;
+  font-weight: bold;
+}
+.leaderboard-table div {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #ddd;
+}
+.leaderboard-table h3 {
+  text-align: center;
+  margin-bottom: 12px;
+}
