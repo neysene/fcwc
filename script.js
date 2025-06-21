@@ -18,19 +18,135 @@ function normalize(text) {
   return text.replace(/\s+/g, " ").trim();
 }
 
-// Sortable kurulumu
+// DRY için: team-mini içeriğini oluşturur
+function renderTeamMini(teamData, extraClass = "") {
+  return `<div class="team-mini ${extraClass}">${
+    teamData.src ? `<img src="${teamData.src}" alt="${teamData.alt}" />` : ""
+  }${teamData.name}</div>`;
+}
+
+// Sortable'ı yalnızca bir kez kurar, grup başına benzersiz isim vererek
 function initializeSortables() {
-  document.querySelectorAll(".group").forEach((group) => {
+  document.querySelectorAll(".group").forEach((group, index) => {
+    // Eğer grup zaten başlatılmışsa atla:
+    if (group.classList.contains("sortable-initialized")) return;
+
     Sortable.create(group, {
       animation: 150,
-      group: "groups",
+      group: {
+        // Her grup için benzersiz bir isim oluşturuyorum
+        name: "group-" + index,
+        put: false, // Başka gruplardan öğe alınmasına izin verme.
+      },
       draggable: ".team",
       onSort: () => {
         updateKnockoutMatches();
         updateLeaderboard();
       },
     });
+
+    group.classList.add("sortable-initialized");
   });
+}
+
+// Seçilen maçtan sonraki tüm zincir yolunu temizler
+function clearPathFrom(matchId) {
+  let currentId = matchId;
+  const visited = new Set();
+
+  while (currentId) {
+    if (visited.has(currentId)) break;
+    visited.add(currentId);
+
+    const match = document.getElementById(currentId);
+    if (!match) break;
+
+    const nextId = match.dataset.next;
+    const slot = match.dataset.slot;
+
+    if (nextId && slot) {
+      const nextMatch = document.getElementById(nextId);
+      if (nextMatch) {
+        // Belirtilen slotdaki takım varsa kaldır
+        const teamEl = nextMatch.querySelector(`.team-${slot}`);
+        if (teamEl) teamEl.remove();
+        // O maçtaki tüm takım seçimi "winner" sınıflarını kaldır
+        nextMatch
+          .querySelectorAll(".team-mini")
+          .forEach((el) => el.classList.remove("winner"));
+      }
+      currentId = nextId;
+    } else {
+      break;
+    }
+  }
+  // Şampiyon kutusunu da temizle
+  const championSlot = document.getElementById("champion");
+  if (championSlot) championSlot.innerHTML = "";
+}
+
+// Zincirleme propagasyon: Eğer mevcut maç final değilse, galibiyi bir üst maça taşır.
+// Eğer mevcut maç final ise, şampiyon kutusunu günceller.
+function propagateWinner(matchId) {
+  const match = document.getElementById(matchId);
+  const winner = match?.querySelector(".team-mini.winner");
+  if (!winner) return;
+
+  // Eğer bu maç final ise, şampiyon kutusunu güncelle ve dur.
+  if (matchId === "final") {
+    const championSlot = document.getElementById("champion");
+    if (championSlot) {
+      const teamData = {
+        name: normalize(winner.textContent),
+        src: winner.querySelector("img")?.src || "",
+        alt: winner.querySelector("img")?.alt || "",
+      };
+      championSlot.innerHTML = `
+        <div class="match-label">🏆 Şampiyon</div>
+        ${renderTeamMini(teamData)}
+      `;
+    }
+    return;
+  }
+
+  const nextId = match.dataset.next;
+  const slot = match.dataset.slot;
+  if (!nextId || !slot) return;
+
+  const nextMatch = document.getElementById(nextId);
+  if (!nextMatch) return;
+
+  const teamData = {
+    name: normalize(winner.textContent),
+    src: winner.querySelector("img")?.src || "",
+    alt: winner.querySelector("img")?.alt || "",
+  };
+
+  const newBlockHTML = renderTeamMini(teamData, `team-${slot}`);
+  // Yeni elementi oluşturmak için geçici container kullanıyoruz.
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = newBlockHTML;
+  const newBlock = tempDiv.firstElementChild;
+
+  const existing = nextMatch.querySelector(`.team-${slot}`);
+  if (existing) {
+    existing.replaceWith(newBlock);
+  } else {
+    if (slot === "left") {
+      nextMatch.insertBefore(newBlock, nextMatch.firstChild);
+    } else {
+      const leftEl = nextMatch.querySelector(".team-left");
+      if (leftEl && leftEl.nextSibling) {
+        leftEl.parentNode.insertBefore(newBlock, leftEl.nextSibling);
+      } else if (leftEl) {
+        leftEl.parentNode.appendChild(newBlock);
+      } else {
+        nextMatch.appendChild(newBlock);
+      }
+    }
+  }
+
+  propagateWinner(nextId);
 }
 
 // DOM yüklendiğinde başlat
@@ -42,61 +158,37 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("click", (e) => {
     const team = e.target.closest(".team-mini");
     const match = e.target.closest(".match");
-    if (!team || !match || !match.dataset.next || !match.dataset.slot) return;
+    if (!team || !match) return;
 
-    const selected = {
-      name: normalize(team.textContent),
-      src: team.querySelector("img")?.src || "",
-      alt: team.querySelector("img")?.alt || "",
-    };
-
-    const allTeams = match.querySelectorAll(".team-mini");
-    allTeams.forEach((t) => t.classList.remove("winner"));
+    // Mevcut maçtaki tüm takım elemanlarından "winner" sınıfını kaldır
+    match
+      .querySelectorAll(".team-mini")
+      .forEach((el) => el.classList.remove("winner"));
     team.classList.add("winner");
 
-    const nextId = match.dataset.next;
-    const slot = match.dataset.slot;
-    const target = document.getElementById(nextId);
-    if (!target) return;
-
-    const block = document.createElement("div");
-    block.className = `team-mini team-${slot}`;
-    block.innerHTML = `<img src="${selected.src}" alt="${selected.alt}" />${selected.name}`;
-    const existing = target.querySelector(`.team-${slot}`);
-    if (existing) existing.replaceWith(block);
-    else target.appendChild(block);
-
-    if (match.id === "final") {
-      const champion = document.getElementById("champion");
-      if (champion) {
-        champion.innerHTML = `
-            <div class="match-label">🏆 Şampiyon</div>
-            <div class="team-mini"><img src="${selected.src}" alt="${selected.alt}" />${selected.name}</div>
-          `;
-      }
-    }
-
+    clearPathFrom(match.id);
+    propagateWinner(match.id);
     updateLeaderboard();
   });
 });
 
-// Grup eşleşmelerini oluştur
+// Grup verilerinden eşleşmeleri oluşturur
 function updateKnockoutMatches() {
   const groupData = {};
   document.querySelectorAll(".group").forEach((group) => {
-    const groupName = group
+    const name = group
       .querySelector(".group-title")
       ?.textContent.trim()
       .replace("Grup ", "");
-    const teams = [...group.querySelectorAll(".team")].map((team) => {
-      const img = team.querySelector("img");
+    const teams = [...group.querySelectorAll(".team")].map((t) => {
+      const img = t.querySelector("img");
       return {
-        name: normalize(team.textContent),
+        name: normalize(t.textContent),
         src: img?.src || "",
         alt: img?.alt || "",
       };
     });
-    if (groupName) groupData[groupName] = teams;
+    if (name) groupData[name] = teams;
   });
 
   const matchups = [
@@ -134,20 +226,18 @@ function updateKnockoutMatches() {
       alt: "",
     };
     match.innerHTML = `
-        <div class="team-mini"><img src="${t1.src}" alt="${t1.alt}" />${t1.name}</div>
-        <div class="team-mini"><img src="${t2.src}" alt="${t2.alt}" />${t2.name}</div>
-      `;
+      ${renderTeamMini(t1)}
+      ${renderTeamMini(t2)}
+    `;
   });
 
   initializeSortables();
   updateLeaderboard();
 }
 
-// Puanla ve sırala
+// Tahminlere göre puan hesaplamayı gerçekleştirir
 function puanla(tahminler) {
   const puanlar = {};
-
-  // Gerçek grup sıralamaları
   const gercekGruplar = {};
   document.querySelectorAll(".group").forEach((group) => {
     const ad = group
@@ -160,7 +250,6 @@ function puanla(tahminler) {
     if (ad) gercekGruplar[ad] = takimlar;
   });
 
-  // Gerçek kazananlar
   const kazananlar = { qf: [], sf: [], final: [], champion: "" };
   const roundMap = {
     qf: [
@@ -224,19 +313,22 @@ function puanla(tahminler) {
   return puanlar;
 }
 
-// Sıralama sekmesini güncelle
+// Sıralama tablosunu günceller
 function updateLeaderboard() {
   if (typeof tahminler !== "object") return;
   const puanlar = puanla(tahminler);
   const sirali = Object.entries(puanlar).sort((a, b) => b[1] - a[1]);
-
   const tablo = document.getElementById("puan-tablosu");
   if (!tablo) return;
-
   tablo.innerHTML = "<h3>🏅 Tahmin Sıralaması</h3>";
-  sirali.forEach(([isim, puan]) => {
+  sirali.forEach(([isim, puan], index) => {
     const satir = document.createElement("div");
-    satir.innerHTML = `<span>${isim}</span><span>${puan} puan</span>`;
+    satir.classList.add("puan-satiri");
+    satir.innerHTML = `
+      <span class="sira">${index + 1}.</span>
+      <span class="isim">${isim}</span>
+      <span class="puan">${puan} puan</span>
+    `;
     tablo.appendChild(satir);
   });
 }

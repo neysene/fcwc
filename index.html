@@ -5,6 +5,7 @@
     <title>Tahmin Yarışması</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="stylesheet" href="styles.css" />
+    <!-- Sortable kütüphanesi main.js’den önce yüklensin -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
   </head>
   <body>
@@ -21,197 +22,7 @@
     </div>
 
     <div id="groups" class="tab-content active">
-      <div class="group-container"">
-        <div class="group">
-          <div class="group-title">Grup A</div>
-          <div class="team">
-            <img
-              src="assets/logo/Palmeiras_logo.svg"
-              alt="Palmeiras"
-            />Palmeiras
-          </div>
-          <div class="team">
-            <img src="assets/logo/FC_Porto.svg" alt="Porto" />Porto
-          </div>
-          <div class="team">
-            <img src="assets/logo/Al_Ahly_SC_logo.svg" alt="Al Ahly" />Al Ahly
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/Inter_Miami_CF_logo.svg"
-              alt="Inter Miami"
-            />Inter Miami
-          </div>
-        </div>
-        <div class="group">
-          <div class="group-title">Grup B</div>
-          <div class="team">
-            <img src="assets/logo/Paris_Saint-Germain_F.C..svg" alt="PSG" />PSG
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/Atletico_Madrid_Logo_2024.svg"
-              alt="Atletico Madrid"
-            />Atlético Madrid
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/Botafogo_de_Futebol_e_Regatas_logo.svg"
-              alt="Botafogo"
-            />Botafogo
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/Seattle_Sounders_logo.svg"
-              alt="Seattle Sounders"
-            />Seattle Sounders
-          </div>
-        </div>
-        <div class="group">
-          <div class="group-title">Grup C</div>
-          <div class="team">
-            <img
-              src="assets/logo/FC_Bayern_München_logo_(2024).svg"
-              alt="Bayern"
-            />Bayern Münih
-          </div>
-          <div class="team">
-            <img src="assets/logo/SL_Benfica_logo.svg" alt="Benfica" />Benfica
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/Boca_Juniors_logo18.svg"
-              alt="Boca Juniors"
-            />Boca Juniors
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/New_Auckland_City_FC_logo_(updated_2022).png"
-              alt="Auckland City"
-            />Auckland City
-          </div>
-        </div>
-        <div class="group">
-          <div class="group-title">Grup D</div>
-          <div class="team">
-            <img src="assets/logo/Chelsea_FC.svg" alt="Chelsea" />Chelsea
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/Flamengo_braz_logo.svg"
-              alt="Flamengo"
-            />Flamengo
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/Los_Angeles_Football_Club.svg"
-              alt="LAFC"
-            />LAFC
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/Espérance_Sportive_de_Tunis_logo.png"
-              alt="ES Tunis"
-            />ES Tunis
-          </div>
-        </div>
-        <div class="group">
-          <div class="group-title">Grup E</div>
-          <div class="team">
-            <img
-              src="assets/logo/Escudo_del_C_A_River_Plate.svg"
-              alt="River Plate"
-            />River Plate
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/FC_Internazionale_Milano_2021.svg"
-              alt="Inter Milan"
-            />Inter Milan
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/Club_de_Fútbol_Monterrey_2019_Logo.svg"
-              alt="Monterrey"
-            />Monterrey
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/Urawa_Red_Diamonds_logo.svg"
-              alt="Urawa Red Diamonds"
-            />Urawa
-          </div>
-        </div>
-        <div class="group">
-          <div class="group-title">Grup F</div>
-          <div class="team">
-            <img
-              src="assets/logo/Borussia_Dortmund_logo.svg"
-              alt="Dortmund"
-            />Dortmund
-          </div>
-          <div class="team">
-            <img src="assets/logo/FFC_crest.svg" alt="Fluminense" />Fluminense
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/Mamelodi_Sundowns_F.C.svg"
-              alt="Mamelodi"
-            />Mamelodi
-          </div>
-          <div class="team">
-            <img src="assets/logo/Ulsan_Hyundai_FC.svg" alt="Ulsan" />Ulsan HD
-          </div>
-        </div>
-        <div class="group">
-          <div class="group-title">Grup G</div>
-
-          <div class="team">
-            <img
-              src="assets/logo/Juventus_FC_-_logo_black_(Italy,_2020).svg"
-              alt="Juventus"
-            />Juventus
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/Manchester_City_FC_badge.svg"
-              alt="Manchester City"
-            />Manchester City
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/Wydad_AC_crest_(2022).svg"
-              alt="Wydad AC"
-            />Wydad AC
-          </div>
-          <div class="team">
-            <img src="assets/logo/Al_Ain_FC_logo_2024.png" alt="Al Ain" />Al Ain
-          </div>
-        </div>
-        <div class="group">
-          <div class="group-title">Grup H</div>
-          <div class="team">
-            <img src="assets/logo/Real_Madrid_CF.svg" alt="Real Madrid" />Real
-            Madrid
-          </div>
-          <div class="team">
-            <img src="assets/logo/Al_Hilal_SFC_Logo.svg" alt="Al Hilal" />Al
-            Hilal
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/FC_Red_Bull_Salzburg_logo.svg"
-              alt="RB Salzburg"
-            />RB Salzburg
-          </div>
-          <div class="team">
-            <img
-              src="assets/logo/Pachuca_Tuzos_logo.svg"
-              alt="Pachuca"
-            />Pachuca
-          </div>
-        </div>
-      </div>
+      <div class="group-container"></div>
     </div>
 
     <div id="knockout" class="tab-content">
@@ -300,10 +111,16 @@
     </div>
 
     <div id="leaderboard" class="tab-content">
-      <div id="puan-tablosu" class="leaderboard-table"></div>
+      <div class="puan-wrapper">
+        <div class="uyari-bilgilendirme">
+          ⚠️ Bu sıralama eğlence amaçlıdır. Verileri alırken ve işlerken hata
+          yapmış olmam muhtemel. Tahmin edeceğiniz üzere, herhangi bir
+          bağlayıcılığı yoktur.
+        </div>
+        <div id="puan-tablosu" class="leaderboard-table"></div>
+      </div>
     </div>
-
-    <script src="tahminler.js"></script>
-    <script src="script.js"></script>
+    <!-- Ana modül dosyanız -->
+    <script type="module" src="main.js"></script>
   </body>
 </html>
