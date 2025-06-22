@@ -205,10 +205,9 @@ body {
   background: white;
   border: 2px solid #2c3e50;
   border-radius: 8px;
-  padding: 16px;
   width: 100%;
   max-width: 800px;
-  margin: 20px auto;
+  margin: auto;
   font-weight: bold;
   font-family: sans-serif;
   overflow-x: auto; /* Gerektiğinde yatay kaydırma */
@@ -278,6 +277,6 @@ body {
   font-size: 0.95rem;
   max-width: 800px;
   width: 100%;
-  margin: 20px auto 0;
+  margin: auto 0;
   box-sizing: border-box;
 }
