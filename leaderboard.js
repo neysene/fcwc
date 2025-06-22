@@ -1,3 +1,5 @@
+//leaderboard.js
+
 import { normalize, getTeamAbbr } from "./utils.js";
 import { tahminler } from "./tahminler.js";
 
@@ -118,7 +120,8 @@ export function updateLeaderboard() {
   if (!tablo || typeof tahminler !== "object") return;
 
   const { total, detay } = detailedPuanla(tahminler);
-  // Tahmin sırasına göre kullanıcı adlarını alalım
+
+  // Tahmin sırasına göre kullanıcı adlarını alalım. tie-breaker için kullanılacak
   const orijinalSira = Object.keys(tahminler);
 
   // Sıralama: önce puana göre azalan, sonra orijinal sıraya göre

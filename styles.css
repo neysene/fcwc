@@ -245,8 +245,8 @@ body {
   flex: 0 0 140px;
   text-align: left;
 }
-/* Leaderboard'da grup için artık "grp-leader" kullanıyoruz */
-.table-row .grp-leader,
+
+.table-row .grp,
 .table-row .qf,
 .table-row .sf,
 .table-row .final,
@@ -267,7 +267,7 @@ body {
   margin: 0 auto;
 }
 
-/* Uyarı Kutusu (Leaderboard'ün Altında) */
+/* Uyarı Kutusu (Leaderboard'ün Üstünde) */
 .uyari-bilgilendirme {
   background-color: #ffe3e3;
   border: 1px solid #e0a1a1;
@@ -278,6 +278,6 @@ body {
   font-size: 0.95rem;
   max-width: 800px;
   width: 100%;
-  margin: 20px auto 0; /* Leaderboard'ün hemen altında, üstte 20px boşluk */
+  margin: 20px auto 0;
   box-sizing: border-box;
 }
