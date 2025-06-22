@@ -97,10 +97,11 @@ export function detailedPuanla(tahminler) {
       });
     }
 
-    // Şampiyon bonusu
+    // Şampiyon bonusu: Şampiyon tahmin ile gerçek şampiyonu kısaltma üzerinden karşılaştırıyoruz.
     if (
-      normalize(t.knockout.champion) &&
-      normalize(t.knockout.champion) === kazananlar.champion
+      normalize(getTeamAbbr(t.knockout.champion)) &&
+      normalize(getTeamAbbr(t.knockout.champion)) ===
+        normalize(getTeamAbbr(kazananlar.champion))
     ) {
       champion = 200;
     }
