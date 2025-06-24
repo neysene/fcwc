@@ -127,14 +127,14 @@ export const teams = [
     abbr: "RIV",
     logo: "assets/logo/Escudo_del_C_A_River_Plate.svg",
     group: "E",
-    order: 1,
+    order: 2,
   },
   {
     name: "Inter Milan",
     abbr: "INT",
     logo: "assets/logo/FC_Internazionale_Milano_2021.svg",
     group: "E",
-    order: 2,
+    order: 1,
   },
   {
     name: "Monterrey",
@@ -217,7 +217,7 @@ export const teams = [
     abbr: "RMA",
     logo: "assets/logo/Real_Madrid_CF.svg",
     group: "H",
-    order: 2,
+    order: 1,
   },
   {
     name: "Al Hilal",
@@ -231,7 +231,7 @@ export const teams = [
     abbr: "SAL",
     logo: "assets/logo/FC_Red_Bull_Salzburg_logo.svg",
     group: "H",
-    order: 1,
+    order: 2,
   },
   {
     name: "Pachuca",
