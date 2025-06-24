@@ -67,14 +67,14 @@ export const teams = [
     abbr: "BAY",
     logo: "assets/logo/FC_Bayern_München_logo_(2024).svg",
     group: "C",
-    order: 1,
+    order: 2,
   },
   {
     name: "Benfica",
     abbr: "BEN",
     logo: "assets/logo/SL_Benfica_logo.svg",
     group: "C",
-    order: 2,
+    order: 1,
   },
   {
     name: "Boca Juniors",
