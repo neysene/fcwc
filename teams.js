@@ -187,14 +187,14 @@ export const teams = [
     abbr: "JUV",
     logo: "assets/logo/Juventus_FC_-_logo_black_(Italy,_2020).svg",
     group: "G",
-    order: 1,
+    order: 2,
   },
   {
     name: "Manchester City",
     abbr: "MCI",
     logo: "assets/logo/Manchester_City_FC_badge.svg",
     group: "G",
-    order: 2,
+    order: 1,
   },
   {
     name: "Wydad AC",
