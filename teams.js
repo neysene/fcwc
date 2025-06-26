@@ -127,7 +127,7 @@ export const teams = [
     abbr: "RIV",
     logo: "assets/logo/Escudo_del_C_A_River_Plate.svg",
     group: "E",
-    order: 2,
+    order: 3,
   },
   {
     name: "Inter Milan",
@@ -141,7 +141,7 @@ export const teams = [
     abbr: "MON",
     logo: "assets/logo/Club_de_Fútbol_Monterrey_2019_Logo.svg",
     group: "E",
-    order: 3,
+    order: 2,
   },
   {
     name: "Urawa",
