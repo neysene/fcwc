@@ -224,14 +224,14 @@ export const teams = [
     abbr: "AHI",
     logo: "assets/logo/Al_Hilal_SFC_Logo.svg",
     group: "H",
-    order: 3,
+    order: 2,
   },
   {
     name: "RB Salzburg",
     abbr: "SAL",
     logo: "assets/logo/FC_Red_Bull_Salzburg_logo.svg",
     group: "H",
-    order: 2,
+    order: 3,
   },
   {
     name: "Pachuca",
