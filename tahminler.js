@@ -1592,7 +1592,7 @@ export const tahminler = {
       champion: "Boca Juniors",
     },
   },
-  "Kullanici #60": {
+  bergamot: {
     groups: {
       A: ["Palmeiras", "Al Ahly", "Inter Miami", "Porto"],
       B: ["PSG", "Atletico Madrid", "Botafogo", "Seattle Sounders"],
