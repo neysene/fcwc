@@ -201,14 +201,14 @@ export const teams = [
     abbr: "WYD",
     logo: "assets/logo/Wydad_AC_crest_(2022).svg",
     group: "G",
-    order: 3,
+    order: 4,
   },
   {
     name: "Al Ain",
     abbr: "ALN",
     logo: "assets/logo/Al_Ain_FC_logo_2024.png",
     group: "G",
-    order: 4,
+    order: 3,
   },
 
   // Grup H
